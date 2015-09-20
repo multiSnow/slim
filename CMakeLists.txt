@@ -22,10 +22,16 @@ set(SLIM_VERSION_PATCH "6")
 set(SLIM_VERSION "${SLIM_VERSION_MAJOR}.${SLIM_VERSION_MINOR}.${SLIM_VERSION_PATCH}")
 
 set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation Directory")
-set(PKGDATADIR "${CMAKE_INSTALL_PREFIX}/share/slim")
-set(SYSCONFDIR "/etc")
-set(LIBDIR "/lib")
-set(MANDIR "${CMAKE_INSTALL_PREFIX}/share/man")
+set(PKGDATADIR "${CMAKE_INSTALL_PREFIX}/share/slim" CACHE PATH "Arch-Independent Data Root Directory")
+set(SYSCONFDIR "/etc" CACHE PATH "Directory where slim.conf and slimlock.conf will placed in")
+set(LIBDIR "/lib" CACHE PATH "Libraries Directory")
+set(MANDIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Man Documentation Directory")
+set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
+
+option(USE_PAM "Use PAM authentication" ON)
+option(BUILD_SLIMLOCK "Build a Unholy Screen Locker" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+option(USE_CONSOLEKIT "ConsoleKit Support" OFF)
 
 set(SLIM_DEFINITIONS)
 if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR
@@ -65,14 +71,7 @@ set(common_srcs
 )
 if(USE_PAM)
 	set(common_srcs ${common_srcs} PAM.cpp)
-    # for now, only build slimlock if we are using PAM.
-    if(BUILD_SLIMLOCK)
-	set(BUILD_SLIMLOCK 1)
-    endif(BUILD_SLIMLOCK)
 endif(USE_PAM)
-
-# Build common library
-set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries")
 
 if (BUILD_SHARED_LIBS)
 	message(STATUS "Enable shared library building")
