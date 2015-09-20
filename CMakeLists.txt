@@ -121,6 +121,7 @@ if(USE_PAM)
 		set(SLIM_DEFINITIONS ${SLIM_DEFINITIONS} "-DUSE_PAM")
 		target_link_libraries(${PROJECT_NAME} ${PAM_LIBRARY})
 		target_link_libraries(slimlock ${PAM_LIBRARY})
+		target_link_libraries(libslim ${PAM_LIBRARY})
 		include_directories(${PAM_INCLUDE_DIR})
 	else(PAM_FOUND)
 		message("\tPAM Not Found")
@@ -178,7 +179,10 @@ include_directories(
 )
 
 target_link_libraries(libslim
-    ${JPEG_LIBRARIES}
+	${RT_LIB}
+	${X11_Xft_LIB}
+	${X11_Xrandr_LIB}
+	${JPEG_LIBRARIES}
 	${PNG_LIBRARIES}
 )
 
@@ -229,8 +233,8 @@ if (BUILD_SHARED_LIBS)
 		SOVERSION ${SLIM_VERSION})
 
 	install(TARGETS libslim
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+		LIBRARY DESTINATION lib${LIB_SUFFIX}
+		ARCHIVE DESTINATION lib${LIB_SIFFUX}
 	)
 endif (BUILD_SHARED_LIBS)
 
