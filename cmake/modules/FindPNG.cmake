@@ -1,0 +1,7 @@
+find_path(PNG_INCLUDE_DIR NAMES png.h)
+find_library(PNG_LIBRARY png)
+find_package(PackageHandleStandardArgs)
+find_package_handle_standard_args(PNG REQUIRED_VARS PNG_LIBRARY PNG_INCLUDE_DIR)
+if(PNG_LIBRARY AND PNG_INCLUDE_DIR)
+  set(PNG_LIBRARIES ${PNG_LIBRARY})
+endif()

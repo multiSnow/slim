@@ -97,7 +97,6 @@ find_package(X11 REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(PNG REQUIRED)
-find_package(ZLIB REQUIRED)
 
 # Fontconfig
 set(FONTCONFIG_DIR ${CMAKE_MODULE_PATH})
@@ -171,7 +170,6 @@ include_directories(
 	${X11_Xrandr_INCLUDE_PATH}
 	${FREETYPE_INCLUDE_DIR_freetype2}
 	${X11_Xmu_INCLUDE_PATH}
-	${ZLIB_INCLUDE_DIR}
 	${JPEG_INCLUDE_DIR}
 	${PNG_INCLUDE_DIR}
 )
